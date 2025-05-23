@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Румынское телевидение, Румынское телевидение в Европе">
+    <meta name="description" content="EmigrInfoTV - User Registration">
+    <title>Register - EmigrInfoTV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Emigr TV</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Register for Emigr TV</h1>
+        <form id="registerForm" action="register.php" method="POST">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required minlength="3" maxlength="50" value="<?php echo isset($_SESSION['form_data']['username']) ? htmlspecialchars($_SESSION['form_data']['username']) : ''; ?>">
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required value="<?php echo isset($_SESSION['form_data']['email']) ? htmlspecialchars($_SESSION['form_data']['email']) : ''; ?>">
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required minlength="8">
+            </div>
+            <div>
+                <label for="password_confirm">Confirm Password:</label>
+                <input type="password" id="password_confirm" name="password_confirm" required minlength="8">
+            </div>
+            <button type="submit">Register</button>
+            <div id="message-area" class="message-area">
+                <?php
+                if (session_status() == PHP_SESSION_NONE) { // Start session if not already started
+                    session_start();
+                }
+                if (isset($_SESSION['register_errors'])) {
+                    echo '<ul class="errors">';
+                    foreach ($_SESSION['register_errors'] as $error) {
+                        echo '<li>' . htmlspecialchars($error) . '</li>';
+                    }
+                    echo '</ul>';
+                    unset($_SESSION['register_errors']); // Clear errors after displaying
+                }
+                // Clear form data if it was stored for repopulation
+                if (isset($_SESSION['form_data'])) {
+                    unset($_SESSION['form_data']);
+                }
+                ?>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2023 Emigr TV. All rights reserved.</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>

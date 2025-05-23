@@ -1,0 +1,139 @@
+/* Overall Theme */
+body {
+    background-color: #000000;
+    color: #FFD700;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+header {
+    background-color: #111111; /* Slightly lighter black for contrast */
+    padding: 10px 20px;
+    display: flex; /* Using flexbox for easy alignment */
+    align-items: center; /* Vertically align items in the center */
+    border-bottom: 1px solid #FFD700; /* Gold border */
+}
+
+/* Logo Styling */
+.logo {
+    width: 150px;
+    height: 60px;
+    line-height: 60px; /* Vertically center text */
+    text-align: center;
+    font-size: 24px; /* Adjust as needed */
+    font-weight: bold;
+    color: #FFD700;
+    /* No specific background, inherits from header or can be set if needed */
+}
+
+/* Basic Structure Styling */
+main {
+    padding: 20px; /* Add some padding around the main content */
+    min-height: calc(100vh - 160px); /* Adjust based on header/footer actual height */
+}
+
+footer {
+    background-color: #111111; /* Slightly lighter black for contrast */
+    color: #FFD700;
+    text-align: center;
+    padding: 10px 0;
+    border-top: 1px solid #FFD700; /* Gold border */
+}
+
+/* Navigation Styling */
+nav {
+    margin-left: auto; /* Pushes nav to the right */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex; /* Align navigation items in a row */
+}
+
+nav ul li {
+    margin-left: 20px; /* Spacing between navigation items */
+}
+
+nav ul li a {
+    color: #FFD700;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    text-decoration: underline; /* Optional: for hover effect */
+}
+
+/* Form Styling */
+form {
+    background-color: #111; /* Darker background for form */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #FFD700; /* Gold border */
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+form label {
+    display: block;
+    color: #FFD700; /* Gold text for labels */
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    width: calc(100% - 22px); /* Full width minus padding/border */
+    padding: 10px;
+    border: 1px solid #FFD700; /* Gold border for inputs */
+    background-color: #000; /* Black background for inputs */
+    color: #FFD700; /* Gold text in inputs */
+    border-radius: 4px;
+}
+
+form button[type="submit"] {
+    background-color: #FFD700; /* Gold background for button */
+    color: #000; /* Black text for button */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #e6c300; /* Darker gold on hover */
+}
+
+.message-area {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.message-area .errors {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: #FF4747; /* Red for errors */
+    border: 1px solid #FF4747;
+    padding:10px;
+}
+
+ .message-area .errors li {
+    margin-bottom: 5px;
+}
+
+.message-area .success {
+    color: #32CD32; /* Green for success */
+    border: 1px solid #32CD32;
+    padding:10px;
+}

@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /database.php
+Disallow: /register.php
+Disallow: /login.php
+Disallow: /dashboard.php
+Disallow: /logout.php
+Disallow: /style.css 
+# Add any other specific files or directories that should not be crawled,
+# for example, include directories if sensitive configuration is stored there.
+# Disallow: /includes/
+# Disallow: /admin/

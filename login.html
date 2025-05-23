@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="Румынское телевидение, Румынское телевидение в Европе">
+    <meta name="description" content="EmigrInfoTV - User Login">
+    <title>Login - EmigrInfoTV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Emigr TV</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Login to Emigr TV</h1>
+        <form id="loginForm" action="login.php" method="POST">
+            <div>
+                <label for="username_or_email">Username or Email:</label>
+                <input type="text" id="username_or_email" name="username_or_email" required value="<?php echo isset($_SESSION['form_data_login']['username_or_email']) ? htmlspecialchars($_SESSION['form_data_login']['username_or_email']) : ''; ?>">
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+            <div id="message-area" class="message-area">
+                <?php
+                if (session_status() == PHP_SESSION_NONE) { // Start session if not already started
+                    session_start();
+                }
+                if (isset($_SESSION['login_errors'])) {
+                    echo '<ul class="errors">';
+                    foreach ($_SESSION['login_errors'] as $error) {
+                        echo '<li>' . htmlspecialchars($error) . '</li>';
+                    }
+                    echo '</ul>';
+                    unset($_SESSION['login_errors']); // Clear errors
+                }
+                if (isset($_SESSION['success_message'])) {
+                    echo '<p class="success">' . htmlspecialchars($_SESSION['success_message']) . '</p>';
+                    unset($_SESSION['success_message']); // Clear success message
+                }
+                // Clear form data if it was stored for repopulation
+                if (isset($_SESSION['form_data_login'])) {
+                    unset($_SESSION['form_data_login']);
+                }
+                ?>
+            </div>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2023 Emigr TV. All rights reserved.</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
