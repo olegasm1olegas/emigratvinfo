@@ -1,8 +1,168 @@
+/* Logo Styling */
+.logo {
+    font-size: 24px; /* Base size for "Emigrinfo" */
+    font-weight: bold;
+    color: #FFD700; /* Gold color for "Emigrinfo" part */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto; /* Allow to fit content */
+    height: 60px; /* Keep consistent height */
+    line-height: 60px; /* Vertical align text */
+}
+
+.logo-tv {
+    display: inline-block;
+    color: #FFD700; /* Gold color for TV */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.7), /* Main gold glow */
+                 0 0 10px rgba(255, 165, 0, 0.5); /* Softer orange glow */
+    position: relative;
+    perspective: 500px; /* Define perspective for 3D space on the element itself */
+    animation: rotateTV 8s infinite linear;
+    transform-style: preserve-3d;
+    margin-left: 3px; /* Slightly increased space */
+    font-size: inherit; /* Inherit font size from .logo */
+}
+
+@keyframes rotateTV {
+    0% {
+        transform: rotateY(0deg) rotateX(0deg) translateZ(0);
+    }
+    25% {
+        transform: rotateY(25deg) rotateX(10deg) translateZ(10px) scale(1.1); /* Less Y, more Z pop, slight scale */
+        text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 165, 0, 0.6);
+    }
+    50% {
+        transform: rotateY(0deg) rotateX(0deg) translateZ(0) scale(1);
+    }
+    75% {
+         transform: rotateY(-25deg) rotateX(-10deg) translateZ(10px) scale(1.1);/* Less Y, more Z pop, slight scale */
+         text-shadow: 0 0 8px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 165, 0, 0.6);
+    }
+    100% {
+        transform: rotateY(0deg) rotateX(0deg) translateZ(0);
+    }
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Stack logo and nav if they are flex items */
+        align-items: center;
+    }
+    .logo {
+        /* Consider reducing size or margin for smaller screens */
+        margin-bottom: 10px;
+        /* font-size: 20px; /* Example: If EmigrinfoTV text needs to scale */
+    }
+    nav ul {
+        flex-direction: column; /* Stack nav items */
+        align-items: center;
+    }
+    nav ul li {
+        margin: 5px 0; /* Adjust spacing for vertical layout */
+    }
+    nav ul li a {
+        padding: 8px 10px; /* Adjust padding */
+    }
+
+    form {
+        /* max-width is already 450px, which is fine for tablets.
+           For very small screens, ensure it's not wider than viewport. */
+        width: 90%; /* Allow form to shrink more if needed */
+        margin-left: auto;
+        margin-right: auto;
+        padding: 20px; /* May reduce padding slightly on small screens */
+    }
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"] {
+        font-size: 16px; /* Ensure readability on mobile, prevent zoom */
+    }
+
+    .showcase-item .showcase-image {
+        /* Already stacks due to existing rule, ensure image width is 100% of its container */
+        max-width: 100%; /* Or width: 100% if flex basis allows */
+        /* margin-right: 0; /* This is already handled by the existing rule for 768px */
+        /* margin-bottom: 15px; /* This is already handled by the existing rule for 768px */
+    }
+    .call-to-action-banner h2 {
+        font-size: 2em; /* Reduce font size from 2.5em */
+    }
+    .call-to-action-banner p {
+        font-size: 1em; /* Reduce font size from 1.2em */
+    }
+    .call-to-action-banner .large-cta {
+        padding: 12px 25px; /* Reduce padding */
+        font-size: 1.1em; /* Reduce font size */
+    }
+
+    footer p {
+        font-size: 0.9em; /* Adjust if needed */
+    }
+}
+
+@media (max-width: 480px) { /* Targeting smaller mobile phones */
+    .logo {
+       font-size: 18px; /* Further reduce logo font if needed */
+       /* width: 120px; height: 48px; line-height: 48px; /* If resizing logo box */
+    }
+    .logo-tv {
+       /* May need to adjust animation or size if it breaks layout */
+    }
+
+    .showcase-content h2 {
+        font-size: 1.5em; /* Further reduce heading size */
+    }
+    .showcase-content p {
+        font-size: 0.95em;
+    }
+    .cta-button { /* General CTA buttons */
+       padding: 8px 12px;
+       font-size: 0.9em;
+    }
+
+    .call-to-action-banner h2 {
+        font-size: 1.8em;
+    }
+    .call-to-action-banner p {
+        font-size: 0.9em;
+    }
+    .call-to-action-banner .large-cta {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    form {
+        padding: 15px; /* Less padding on very small screens */
+    }
+    form label {
+        font-size: 0.9em;
+    }
+}
+
+/* For scroll-triggered fade-in animation */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(40px); /* Start slightly lower */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* For parallax effect on images - this will be controlled by JS */
+.parallax-image {
+    /* The image itself. JS will set transform: translateY() */
+    transition: transform 0.1s linear; /* Smooths the parallax effect slightly */
+}
+
 /* Overall Theme */
 body {
     background-color: #000000;
     color: #FFD700;
-    font-family: sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* More modern font */
     margin: 0;
     padding: 0;
 }
@@ -14,18 +174,6 @@ header {
     display: flex; /* Using flexbox for easy alignment */
     align-items: center; /* Vertically align items in the center */
     border-bottom: 1px solid #FFD700; /* Gold border */
-}
-
-/* Logo Styling */
-.logo {
-    width: 150px;
-    height: 60px;
-    line-height: 60px; /* Vertically center text */
-    text-align: center;
-    font-size: 24px; /* Adjust as needed */
-    font-weight: bold;
-    color: #FFD700;
-    /* No specific background, inherits from header or can be set if needed */
 }
 
 /* Basic Structure Styling */
@@ -41,6 +189,18 @@ footer {
     padding: 10px 0;
     border-top: 1px solid #FFD700; /* Gold border */
 }
+
+/* Google Sign-In Button Container */
+#googleSignInButton {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; 
+    margin-top: 10px; 
+}
+/* The .g-signin2 div itself is largely controlled by Google's CSS.
+   We can't customize it heavily, but we can ensure it's well-placed.
+   If we had used a custom button, we'd style it here.
+   For now, ensure its container is good. */
 
 /* Navigation Styling */
 nav {
@@ -69,13 +229,14 @@ nav ul li a:hover {
 }
 
 /* Form Styling */
-form {
-    background-color: #111; /* Darker background for form */
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #FFD700; /* Gold border */
-    max-width: 400px;
-    margin: 20px auto;
+form { /* Apply to forms on login.html, register.html */
+    background-color: #0a0a0a; /* Slightly darker than previous #111 */
+    padding: 25px 30px; /* Increased padding */
+    border-radius: 10px; /* More pronounced rounding */
+    border: 1px solid #554200; /* Dark gold border */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6), inset 0 0 3px rgba(255,215,0,0.1); /* Outer shadow and subtle inner gold glow */
+    max-width: 450px; /* Slightly wider forms */
+    margin: 40px auto; /* Increased top/bottom margin */
 }
 
 form div {
@@ -93,10 +254,17 @@ form input[type="email"],
 form input[type="password"] {
     width: calc(100% - 22px); /* Full width minus padding/border */
     padding: 10px;
-    border: 1px solid #FFD700; /* Gold border for inputs */
     background-color: #000; /* Black background for inputs */
     color: #FFD700; /* Gold text in inputs */
     border-radius: 4px;
+    border: 1px solid #554200; /* Dark gold border, was #FFD700 */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+    border-color: #FFD700; /* Bright gold border on focus */
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.3); /* Gold glow on focus */
 }
 
 form button[type="submit"] {
@@ -107,10 +275,15 @@ form button[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 form button[type="submit"]:hover {
-    background-color: #e6c300; /* Darker gold on hover */
+    background-color: #e6c300; /* Darker gold on hover - already there */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+form button[type="submit"]:active {
+    transform: translateY(0px); /* Press down effect */
 }
 
 .message-area {
@@ -136,4 +309,99 @@ form button[type="submit"]:hover {
     color: #32CD32; /* Green for success */
     border: 1px solid #32CD32;
     padding:10px;
+}
+
+/* In style.css - Basic layout for new sections */
+.content-showcase {
+    padding: 20px 0;
+}
+.showcase-item {
+    background-color: #050505; /* Darker, almost black */
+    margin-bottom: 30px; /* Increased margin */
+    padding: 20px;       /* Increased padding */
+    border: 1px solid #443000; /* Darker gold border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 5px rgba(255, 215, 0, 0.15) inset; /* Outer shadow and inner gold glow */
+    display: flex;
+    flex-wrap: wrap;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* For hover effects */
+}
+.showcase-item:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 8px rgba(255, 215, 0, 0.25) inset;
+}
+.showcase-item .showcase-image {
+    max-width: 100%; /* Responsive image */
+    height: auto;
+    margin-right: 20px; /* Space between image and text */
+    flex: 1 1 300px; /* Flex properties for image container */
+    border-radius: 4px; /* Rounded corners for images */
+    border: 1px solid #554200; /* Slightly more prominent border for image */
+}
+.showcase-item .showcase-content {
+    flex: 2 1 300px; /* Flex properties for content */
+}
+.showcase-content h2 {
+    color: #FFD700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); /* Subtle gold glow for heading */
+    margin-bottom: 15px; /* More space below heading */
+}
+.showcase-content p {
+    color: #e0e0e0; /* Brighter paragraph text */
+    line-height: 1.7;
+    font-size: 1.05em; /* Slightly larger font for readability */
+}
+.cta-button {
+    display: inline-block;
+    background-color: #FFD700;
+    color: #000;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.cta-button:hover {
+    background-color: #e6c300;
+}
+.call-to-action-banner {
+    background: linear-gradient(45deg, #111, #0a0a0a); /* Dark gradient */
+    padding: 40px 30px; /* Increased padding */
+    text-align: center;
+    margin: 40px 0; /* Increased margin */
+    border-top: 2px solid #FFD700;
+    border-bottom: 2px solid #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); /* Gold glow effect */
+}
+.call-to-action-banner h2 {
+    color: #FFD700;
+    font-size: 2.5em; /* Larger heading */
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    margin-bottom: 15px;
+}
+.call-to-action-banner p {
+    color: #f0f0f0;
+    font-size: 1.2em;
+    margin-bottom: 25px;
+}
+.call-to-action-banner .large-cta {
+    padding: 18px 35px; /* Larger button */
+    font-size: 1.3em;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+.call-to-action-banner .large-cta:hover {
+    background-color: #e6c300;
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Simple responsive adjustments for showcase items */
+@media (max-width: 768px) {
+    .showcase-item {
+        flex-direction: column; /* Stack image and text vertically */
+    }
+    .showcase-item .showcase-image {
+        margin-right: 0;
+        margin-bottom: 15px; /* Space below image when stacked */
+    }
 }

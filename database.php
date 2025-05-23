@@ -1,4 +1,53 @@
 <?php
+// --- START Geolocation Restriction ---
+function isUserFromRimini($ipAddress) {
+    // Placeholder for actual geolocation lookup.
+    // In a real implementation, you would use a service or database (e.g., GeoIP2, ip-api.com)
+    // For demonstration, we'll use a few dummy IPs. Replace with real IPs for testing if needed.
+    $riminiTestIPs = [
+        '1.2.3.4', // Example IP 1 (Rimini)
+        '5.6.7.8', // Example IP 2 (Rimini)
+        // Add more test IPs if desired
+    ];
+
+    // For more robust simulation, you could use a free API for your own testing IP if this script is hosted.
+    // Example (use with caution, rate limits apply):
+    // $details = @json_decode(@file_get_contents("http://ip-api.com/json/{$ipAddress}"));
+    // if ($details && $details->status == 'success') {
+    //     // Example check for city and country (adjust based on actual API response structure)
+    //     if (strtolower($details->city) == 'rimini' && strtolower($details->countryCode) == 'it') {
+    //         return true;
+    //     }
+    // }
+
+    if (in_array($ipAddress, $riminiTestIPs)) {
+        return true; // This IP is on our test list for Rimini
+    }
+
+    return false; // Default: IP is not from Rimini or not on test list
+}
+
+// Get user's IP address
+// Be mindful of proxies. HTTP_X_FORWARDED_FOR can be spoofed.
+// REMOTE_ADDR is more reliable but might show proxy IP.
+// For simplicity, we use REMOTE_ADDR. A production system needs a robust IP detection strategy.
+$userIP = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0'; // Default to a safe IP if not set
+
+if (isUserFromRimini($userIP)) {
+    // Log the attempt (optional)
+    error_log("Access attempt from Rimini blocked for IP: " . $userIP);
+    
+    // Block access
+    http_response_code(403); // Forbidden
+    die("Access from your current location is restricted. We apologize for any inconvenience.");
+    // Alternatively, redirect to a specific "blocked" page:
+    // header("Location: /blocked_location.html");
+    // exit();
+}
+// --- END Geolocation Restriction ---
+
+
+// Existing database connection code follows...
 $servername = "localhost"; // Replace with your server name if different
 $username = "root";       // Replace with your database username
 $password = "";           // Replace with your database password

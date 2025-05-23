@@ -1,1 +1,105 @@
-% LaTeX comments will go here
+Project: EmigrInfoTV Website
+
+Overall Purpose:
+This website serves as a platform for EmigrInfoTV, providing user registration, login, a dashboard for authenticated users, and information/content display. The design incorporates a black and gold festival theme with advanced animations and aims for a high-quality visual presentation.
+
+--- File Structure and Key Files ---
+
+- index.html: Main homepage, displays featured content and calls to action.
+- register.html: User registration form.
+- login.html: User login form.
+- dashboard.php: User dashboard, accessible after login. Displays user-specific information.
+- style.css: Contains all CSS rules for styling the website, including theme, layout, animations, and responsiveness.
+- main.js: Contains client-side JavaScript for form validation, Google Sign-In handling, animations, and parallax effects.
+
+- database.php: PHP script for establishing a connection to the MySQL database. Also includes the IP-based geolocation restriction logic.
+- register.php: PHP script for handling user registration (traditional and sets up for Google Sign-In). Manages database interactions for creating new users.
+- login.php: PHP script for handling user login (traditional). Verifies credentials and manages sessions.
+- google_auth.php: PHP script to handle authentication using Google Sign-In. Verifies Google ID token, creates/logs in users, and links Google accounts.
+- logout.php: PHP script to terminate user sessions and log them out.
+
+- koments.tex: This documentation file.
+
+--- Database Schema (users table) ---
+
+The `users` table stores user information:
+- id: INT, Primary Key, Auto Increment. Unique identifier for each user.
+- username: VARCHAR(50), Unique. User's chosen username.
+- email: VARCHAR(100), Unique. User's email address.
+- password: VARCHAR(255), Nullable. Hashed password for traditional registration. NULL for users who signed up only via Google.
+- google_id: VARCHAR(255), Nullable, Unique. User's unique Google ID, if they signed up or linked their Google account.
+- reg_date: TIMESTAMP. Date and time of registration.
+
+--- User Authentication ---
+
+1. Traditional Registration (`register.html` -> `register.php`):
+   - Users provide username, email, and password.
+   - Client-side validation in `main.js`.
+   - Server-side validation in `register.php` (checks for completeness, format, length, existing username/email).
+   - Passwords are hashed using `password_hash()`.
+   - New user data stored in the `users` table.
+
+2. Traditional Login (`login.html` -> `login.php`):
+   - Users provide username/email and password.
+   - Client-side validation in `main.js`.
+   - Server-side validation in `login.php`.
+   - Credentials verified against the database (`password_verify()`).
+   - Session started, user data stored in `$_SESSION`. Session cookie configured for 1-month lifetime, HttpOnly, Secure (if HTTPS), SameSite=Lax.
+
+3. Google Sign-In (Button on `login.html`/`register.html` -> `main.js` -> `google_auth.php`):
+   - User clicks "Sign in with Google" button.
+   - Google Platform Library handles the pop-up and authentication with Google.
+   - On success, `main.js` (`onSignIn` function) receives an ID token from Google.
+   - Token is sent to `google_auth.php` via AJAX.
+   - `google_auth.php` verifies the token (currently simulated, needs Google API Client Library and Client ID for production).
+   - If verified:
+     - Checks if user exists by `google_id`. If yes, logs in.
+     - Else, checks if user exists by `email`. If yes and `google_id` is NULL, links account and logs in.
+     - Else, creates a new user account with Google email, `google_id`, and a generated unique username. Password is NULL. Logs in.
+   - Session is established as with traditional login.
+
+4. Logout (`logout.php`):
+   - Clears all session variables.
+   - Destroys the session.
+   - Clears the session cookie.
+   - Redirects to `index.html`.
+
+--- Dashboard (`dashboard.php`) ---
+
+- Accessible only to logged-in users. Redirects to `login.html` if not authenticated.
+- Displays a welcome message with the user's username and other placeholder information (user ID, session start time).
+- Provides a logout link.
+
+--- Advanced Animations and Effects (`index.html`, `style.css`, `main.js`) ---
+
+- 3D Logo Animation: The "TV" part of the "EmigrinfoTV" logo has a CSS-based 3D rotation animation.
+- Parallax Scrolling: Images within the ".showcase-item" sections on the homepage have a subtle parallax effect, moving at a different rate than the page scroll. Implemented with JavaScript.
+- Scroll-triggered Animations: Homepage sections (e.g., ".showcase-item") fade in and slide up as they enter the viewport during scrolling. Implemented with JavaScript and CSS transitions.
+
+--- Security Measures ---
+
+- SQL Injection Prevention: Prepared statements (parameterized queries) are used for all database interactions involving user input, primarily in `register.php`, `login.php`, and `google_auth.php`.
+- Cross-Site Scripting (XSS) Prevention: User-supplied data displayed on pages (e.g., username on dashboard, error messages) is escaped using `htmlspecialchars()`.
+- Password Security: Passwords are hashed using `password_hash()` (BCRYPT or ARGON2 depending on PHP version).
+- Session Security:
+    - `session_regenerate_id(true)` is used on login to prevent session fixation.
+    - Session cookies are configured with `HttpOnly`, `Secure` (if HTTPS is enabled), and `SameSite=Lax` attributes.
+    - Session cookie lifetime set to 1 month.
+- Geolocation Restriction: Access from specific locations (simulated for Rimini, Italy using test IP addresses) is blocked. This is implemented in `database.php`.
+- Input Validation: Both client-side (JavaScript) and server-side (PHP) validation is performed for forms (completeness, format, length).
+
+--- Responsive Design (`style.css`) ---
+
+- Media queries are used to adapt the website layout for different screen sizes.
+- Major breakpoint at 768px: Adjusts header, navigation, forms, and homepage content for tablet-like views (often stacking elements).
+- Finer adjustments for screens down to ~400px (e.g., font sizes, padding) to ensure usability on smaller mobile devices.
+- Flexbox is used for layout in several areas, providing some inherent fluidity.
+
+--- Notes on "Photorealism" and "AAA Quality" Theme ---
+
+The visual styling aims for a high-quality, modern look within the black and gold festival theme. This is achieved through:
+- Depth effects: Box shadows, text shadows.
+- Richer colors and gradients where appropriate.
+- Hover effects and transitions for interactive elements.
+- Attention to typography and spacing for clarity and elegance.
+- The "photorealism" aspect is currently interpreted as high-quality rendering of UI elements rather than literal photographic textures, though this could be expanded.

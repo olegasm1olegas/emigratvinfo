@@ -35,7 +35,7 @@ $logged_in_at_display = $logged_in_at_timestamp ? date('Y-m-d H:i:s', $logged_in
 </head>
 <body>
     <header>
-        <div class="logo">Emigr TV</div>
+        <div class="logo">Emigrinfo<span class="logo-tv">TV</span></div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
